@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INKOG — Anonymous Reporting</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+}
+
+.hidden { display: none; }
+
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 24px;
+}
+
+.logo {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.tagline {
+  text-align: center;
+  color: #9ca3af;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: #111;
+  padding: 24px;
+  border-radius: 12px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  color: #d1d5db;
+  margin-top: 16px;
+  margin-bottom: 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  background: #000;
+  border: 1px solid #222;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+textarea { min-height: 100px; }
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:hover { opacity: 0.9; }
+
+.link {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.dashboard h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.report {
+  background: #000;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.report small {
+  color: #9ca3af;
+}
+</style>
+</head>
+
+<body>
+
+<!-- STUDENT REPORT -->
+<div id="student" class="container">
+  <div class="logo">INKOG</div>
+  <div class="tagline">Report safely. Stay anonymous.</div>
+
+  <div class="card">
+    <label>School</label>
+    <select>
+      <option>Select School</option>
+      <option>Demo High School</option>
+    </select>
+
+    <label>Issue Type</label>
+    <select>
+      <option>Bullying</option>
+      <option>Harassment</option>
+      <option>Mental Health</option>
+      <option>Safety</option>
+      <option>Other</option>
+    </select>
+
+    <label>Description</label>
+    <textarea placeholder="Describe the issue..."></textarea>
+
+    <button onclick="submitReport()">Submit Report</button>
+  </div>
+
+  <div class="link" onclick="showLogin()">Staff / Admin Login</div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="container hidden">
+  <div class="logo">INKOG</div>
+  <div class="tagline">Authorized access only</div>
+
+  <div class="card">
+    <label>Email</label>
+    <input id="email" type="email">
+
+    <label>Password</label>
+    <input id="password" type="password">
+
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="link" onclick="showStudent()">← Back</div>
+</div>
+
+<!-- STAFF DASHBOARD -->
+<div id="staff" class="container hidden dashboard">
+  <h2>Staff Dashboard</h2>
+
+  <div class="report">
+    <strong>Bullying</strong>
+    <p>Student reported bullying in class.</p>
+    <small>Status: New</small>
+  </div>
+
+  <button onclick="logout()">Logout</button>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="admin" class="container hidden dashboard">
+  <h2>Admin Dashboard</h2>
+
+  <div class="report">
+    <strong>School: Demo High School</strong>
+    <p>Total Reports: 1</p>
+  </div>
+
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+function showLogin() {
+  hideAll();
+  document.getElementById("login").classList.remove("hidden");
+}
+
+function showStudent() {
+  hideAll();
+  document.getElementById("student").classList.remove("hidden");
+}
+
+function hideAll() {
+  document.querySelectorAll(".container").forEach(el => el.classList.add("hidden"));
+}
+
+function submitReport() {
+  alert("Your report has been submitted anonymously.");
+}
+
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  hideAll();
+
+  if (email === "staff@inkog.org" && password === "staff123") {
+    document.getElementById("staff").classList.remove("hidden");
+  } else if (email === "admin@inkog.org" && password === "admin123") {
+    document.getElementById("admin").classList.remove("hidden");
+  } else {
+    alert("Invalid credentials");
+    showLogin();
+  }
+}
+
+function logout() {
+  showStudent();
+}
+</script>
+
+</body>
+</html>
