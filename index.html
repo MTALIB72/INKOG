@@ -201,44 +201,20 @@ button:hover { opacity: 0.9; }
 </div>
 
 <script>
-function showLogin() {
-  hideAll();
-  document.getElementById("login").classList.remove("hidden");
-}
-
-function showStudent() {
-  hideAll();
-  document.getElementById("student").classList.remove("hidden");
-}
-
-function hideAll() {
-  document.querySelectorAll(".container").forEach(el => el.classList.add("hidden"));
-}
-
-function submitReport() {
-  alert("Your report has been submitted anonymously.");
-}
-
 function login() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = document.getElementById("talibmanjul2@gmail.com").value;
+  const password = document.getElementById("farheen@2").value;
 
-  hideAll();
-
-  if (email === "staff@inkog.org" && password === "staff123") {
-    document.getElementById("staff").classList.remove("hidden");
-  } else if (email === "admin@inkog.org" && password === "admin123") {
-    document.getElementById("admin").classList.remove("hidden");
-  } else {
-    alert("Invalid credentials");
-    showLogin();
-  }
-}
-
-function logout() {
-  showStudent();
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => {
+      window.location.href = "admin.html";
+    })
+    .catch(error => {
+      alert(error.message);
+    });
 }
 </script>
+
 
 </body>
 </html>
